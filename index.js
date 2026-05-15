@@ -166,21 +166,16 @@ await channel.send({
   if (interaction.customId === 'cashapp') {
 if (interaction.customId === 'close_ticket') {
 
-  await interaction.reply({
-    content: '🔒 Cerrando ticket...',
-    ephemeral: true
+  await interaction.deferReply({ ephemeral: true });
+
+  await interaction.editReply({
+    content: '🔒 Cerrando ticket...'
   });
 
-  setTimeout(() => {
-    interaction.channel.delete();
+  setTimeout(async () => {
+    await interaction.channel.delete().catch(console.error);
   }, 3000);
 }
-new ButtonBuilder()
-  .setCustomId('close_ticket')
-  .setLabel('Close Ticket')
-  .setEmoji('🔒')
-  .setStyle(ButtonStyle.Danger)
-
     await interaction.reply({
       content: `Send payment to ${process.env.CASHAPP_TAG} and upload proof.`,
       ephemeral: true
