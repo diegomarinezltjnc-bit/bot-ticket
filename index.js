@@ -95,23 +95,33 @@ client.on('interactionCreate', async (interaction) => {
       ]
     });
 
-    const paymentButtons = new ActionRowBuilder()
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId('paypal')
-          .setLabel('PayPal')
-          .setStyle(ButtonStyle.Primary),
+   const paymentButtons = new ActionRowBuilder()
+  .addComponents(
 
-        new ButtonBuilder()
-          .setCustomId('binance')
-          .setLabel('Binance')
-          .setStyle(ButtonStyle.Success),
+    new ButtonBuilder()
+      .setCustomId('paypal')
+      .setLabel('PayPal')
+      .setEmoji('💳')
+      .setStyle(ButtonStyle.Primary),
 
-        new ButtonBuilder()
-          .setCustomId('cashapp')
-          .setLabel('Cash App')
-          .setStyle(ButtonStyle.Secondary)
-      );
+    new ButtonBuilder()
+      .setCustomId('binance')
+      .setLabel('Binance')
+      .setEmoji('🟡')
+      .setStyle(ButtonStyle.Success),
+
+    new ButtonBuilder()
+      .setCustomId('cashapp')
+      .setLabel('Cash App')
+      .setEmoji('💵')
+      .setStyle(ButtonStyle.Secondary),
+
+    new ButtonBuilder()
+      .setCustomId('close_ticket')
+      .setLabel('Close Ticket')
+      .setEmoji('🔒')
+      .setStyle(ButtonStyle.Danger)
+  );
 
 const ticketEmbed = new EmbedBuilder()
 .setTitle('🎟️ Ticket Creado')
