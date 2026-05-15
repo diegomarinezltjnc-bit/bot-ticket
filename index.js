@@ -36,18 +36,33 @@ client.on('messageCreate', async (message) => {
 
   if (message.content === '!panel') {
 
-    const embed = new EmbedBuilder()
-      .setTitle('Support Tickets')
-      .setDescription('Press the button below to open a ticket')
-      .setColor('Blue');
+  const embed = new EmbedBuilder()
+  .setTitle('🎟️ M$NF Tickets')
+  .setDescription(
+    '```fix\nSistema automático de soporte y pagos\n```\n\n✨ Soporte rápido\n💳 Pagos automáticos\n🚀 Entrega instantánea'
+  )
+  .setColor('#9333ea')
+  .setImage('https://i.pinimg.com/originals/1c/ab/8c/1cab8c9ffdfd79b616872e05f333fc54.gif')
+  .setThumbnail('https://i.pinimg.com/736x/d4/1b/6e/d41b6eb12b853a4623dae7c488317559.jpg')
+  .setFooter({
+    text: 'M$NF STORE'
+  })
+  .setTimestamp();
 
-    const row = new ActionRowBuilder()
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId('create_ticket')
-          .setLabel('Open Ticket')
-          .setStyle(ButtonStyle.Success)
-      );
+const row = new ActionRowBuilder()
+.addComponents(
+  new ButtonBuilder()
+    .setCustomId('create_ticket')
+    .setLabel('Open Ticket')
+    .setEmoji('🎫')
+    .setStyle(ButtonStyle.Success),
+
+  new ButtonBuilder()
+    .setLabel('Discord')
+    .setStyle(ButtonStyle.Link)
+    .setURL('https://discord.gg/VhTzHCGNZH')
+    .setEmoji('🌐')
+);
 
     await message.channel.send({
       embeds: [embed],
@@ -98,10 +113,23 @@ client.on('interactionCreate', async (interaction) => {
           .setStyle(ButtonStyle.Secondary)
       );
 
-    await channel.send({
-      content: `Welcome ${interaction.user}`,
-      components: [paymentButtons]
-    });
+const ticketEmbed = new EmbedBuilder()
+.setTitle('🎟️ Ticket Creado')
+.setDescription(
+`Bienvenido ${interaction.user}
+
+💳 Selecciona un método de pago abajo.`
+)
+.setColor('#7e22ce')
+.setImage('https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif')
+.setFooter({
+  text: 'Exotic Support System'
+});
+
+await channel.send({
+  embeds: [ticketEmbed],
+  components: [paymentButtons]
+});
 
     await interaction.reply({
       content: `Ticket created: ${channel}`,
@@ -126,6 +154,22 @@ client.on('interactionCreate', async (interaction) => {
   }
 
   if (interaction.customId === 'cashapp') {
+if (interaction.customId === 'close_ticket') {
+
+  await interaction.reply({
+    content: '🔒 Cerrando ticket...',
+    ephemeral: true
+  });
+
+  setTimeout(() => {
+    interaction.channel.delete();
+  }, 3000);
+}
+new ButtonBuilder()
+  .setCustomId('close_ticket')
+  .setLabel('Close Ticket')
+  .setEmoji('🔒')
+  .setStyle(ButtonStyle.Danger)
 
     await interaction.reply({
       content: `Send payment to ${process.env.CASHAPP_TAG} and upload proof.`,
